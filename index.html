@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coveo — Event Copydeck</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#4A2B8C"/><path d="M7 12a5 5 0 0 1 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="14" r="2.5" fill="#fff"/></svg>
+      <span>Coveo <strong>Event Copydeck</strong></span>
+    </div>
+    <nav class="steps-nav">
+      <button class="step-pill active" data-step="1">
+        <span class="pill-num">1</span> Remplir
+      </button>
+      <span class="step-arrow">→</span>
+      <button class="step-pill" data-step="2" id="nav2">
+        <span class="pill-num">2</span> Révision
+      </button>
+      <span class="step-arrow">→</span>
+      <button class="step-pill" data-step="3" id="nav3">
+        <span class="pill-num">3</span> Export CSV
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════ STEP 1 ═══════════ -->
+  <section id="step1" class="step active">
+    <div class="page-header">
+      <h1>Configuration de l'événement</h1>
+      <p>Remplissez les champs ci-dessous. Les champs avec <span class="req-badge">requis</span> sont obligatoires.</p>
+    </div>
+
+    <form id="eventForm" novalidate>
+
+      <div class="form-card">
+        <div class="card-header">
+          <span class="card-icon">⚙</span> Identification
+        </div>
+        <div class="card-body">
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Nom de l'événement <span class="req">*</span></label>
+              <input type="text" name="itemName" placeholder="ex: Event SS - In Person" required />
+            </div>
+            <div class="field">
+              <label>Chemin de publication</label>
+              <input type="text" name="itemPath" placeholder="/sitecore/content/Home/Resources/Events/2026/" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-icon">🔍</span> Meta Data (SEO)</div>
+        <div class="card-body">
+          <div class="field">
+            <label>Titre SEO <span class="char-hint">60 car. max</span></label>
+            <input type="text" name="metaTitle" maxlength="60" data-counter="60" />
+            <div class="char-counter"><span class="count">0</span>/60</div>
+          </div>
+          <div class="field">
+            <label>Description SEO <span class="char-hint">160 car. max</span></label>
+            <textarea name="metaDescription" maxlength="160" rows="2" data-counter="160"></textarea>
+            <div class="char-counter"><span class="count">0</span>/160</div>
+          </div>
+          <div class="field">
+            <label>Image SEO <span class="char-hint">1200×630 — png ou jpg</span></label>
+            <input type="text" name="metaImage" placeholder="Chemin ou URL de l'image" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-icon">📝</span> Data</div>
+        <div class="card-body">
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Surtitre</label>
+              <input type="text" name="pretitle" />
+            </div>
+            <div class="field">
+              <label>Sous-titre</label>
+              <input type="text" name="subtitle" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Titre principal <span class="req">*</span></label>
+            <textarea name="title" rows="2" required></textarea>
+          </div>
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Image miniature <span class="char-hint">Resource Search</span></label>
+              <input type="text" name="thumbnailImage" placeholder="Chemin Sitecore ou URL" />
+            </div>
+            <div class="field">
+              <label>Image principale (Hero)</label>
+              <input type="text" name="heroImage" placeholder="Chemin Sitecore ou URL" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-icon">📅</span> Date et heure</div>
+        <div class="card-body">
+          <div class="field-grid three-col">
+            <div class="field">
+              <label>Date de début</label>
+              <input type="date" name="startDate" />
+            </div>
+            <div class="field">
+              <label>Heure de début</label>
+              <input type="time" name="startTime" />
+            </div>
+            <div class="field">
+              <label>Fuseau horaire</label>
+              <select name="timeZone">
+                <option value="Eastern Standard Time">Eastern Standard Time (ET)</option>
+                <option value="Central Standard Time">Central Standard Time (CT)</option>
+                <option value="Pacific Standard Time">Pacific Standard Time (PT)</option>
+                <option value="GMT Standard Time">GMT Standard Time (GMT)</option>
+                <option value="Central European Standard Time">Central European Standard Time (CET)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Date de fin</label>
+              <input type="date" name="endDate" />
+            </div>
+            <div class="field">
+              <label>Heure de fin</label>
+              <input type="time" name="endTime" />
+            </div>
+          </div>
+          <div class="toggles-grid">
+            <label class="toggle-field">
+              <span class="toggle-label">Afficher le jour de la semaine</span>
+              <input type="checkbox" name="displayWeekday" role="switch" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+            <label class="toggle-field">
+              <span class="toggle-label">Afficher le fuseau horaire</span>
+              <input type="checkbox" name="displayEventTimeZone" checked role="switch" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+            <label class="toggle-field">
+              <span class="toggle-label">Afficher l'abréviation du fuseau</span>
+              <input type="checkbox" name="displayGenericTimeZoneAbbreviation" checked role="switch" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+            <label class="toggle-field">
+              <span class="toggle-label">Afficher la durée de l'événement</span>
+              <input type="checkbox" name="displayEventDuration" role="switch" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-icon">📍</span> Lieu</div>
+        <div class="card-body">
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Adresse / Lieu</label>
+              <input type="text" name="location" />
+            </div>
+            <div class="field">
+              <label>Lien d'itinéraire <span class="char-hint">Google Maps / Waze</span></label>
+              <input type="url" name="directionLink" placeholder="https://" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-icon">✍</span> Inscription</div>
+        <div class="card-body">
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Type d'inscription</label>
+              <div class="radio-group">
+                <label class="radio-opt">
+                  <input type="radio" name="registrationBehavior" value="Page with form" checked />
+                  <span>Page with form</span>
+                </label>
+                <label class="radio-opt">
+                  <input type="radio" name="registrationBehavior" value="External Registration" />
+                  <span>External Registration</span>
+                </label>
+              </div>
+            </div>
+            <div class="field" id="extLinkField" style="display:none">
+              <label>Lien d'inscription externe</label>
+              <input type="url" name="externalRegistrationLink" placeholder="https://" />
+            </div>
+          </div>
+          <div class="field-grid two-col">
+            <div class="field">
+              <label>Texte du bouton (CTA)</label>
+              <input type="text" name="registrationLabel" value="Register Now" />
+            </div>
+            <div class="field">
+              <label>Titre du formulaire</label>
+              <input type="text" name="overrideFormTitle" value="Register to attend" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Message « événement en cours »</label>
+            <textarea name="eventInProgressMessage" rows="2">A recording will be available soon! In the meantime, check out these other resources.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" id="widgets-card">
+        <div class="card-header">
+          <span><span class="card-icon">🧩</span> Widgets — Content Sections</span>
+          <button type="button" class="btn-add-widget" id="addWidgetBtn">+ Ajouter une section</button>
+        </div>
+        <div class="card-body" id="widgets-body"></div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary btn-lg" id="generateBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Générer le Copydeck (.docx)
+        </button>
+        <p class="form-hint">Le fichier s'ouvre dans Google Docs via Fichier → Ouvrir</p>
+      </div>
+
+    </form>
+  </section>
+
+  <!-- ═══════════ STEP 2 ═══════════ -->
+  <section id="step2" class="step">
+    <div class="page-header">
+      <h1>Révision collaborative</h1>
+      <p>Votre copydeck a été téléchargé. Suivez les étapes pour le partager dans Google Docs.</p>
+    </div>
+
+    <div class="instructions-flow">
+      <div class="instr-card">
+        <div class="instr-num">1</div>
+        <div class="instr-body">
+          <h3>Ouvrir dans Google Docs</h3>
+          <p>Allez sur <a href="https://drive.google.com" target="_blank">drive.google.com</a>, cliquez sur <strong>Nouveau → Importer un fichier</strong> et sélectionnez le fichier <code>copydeck-event.docx</code> téléchargé.</p>
+        </div>
+      </div>
+      <div class="instr-card">
+        <div class="instr-num">2</div>
+        <div class="instr-body">
+          <h3>Partager avec l'équipe</h3>
+          <p>Cliquez sur <strong>Partager</strong> en haut à droite et invitez vos collègues. Ils pourront laisser des commentaires et suggestions directement dans le doc.</p>
+        </div>
+      </div>
+      <div class="instr-card">
+        <div class="instr-num">3</div>
+        <div class="instr-body">
+          <h3>Finaliser le contenu</h3>
+          <p>Une fois les révisions acceptées et le contenu approuvé, revenez ici pour exporter le CSV Sitecore.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step2-actions">
+      <button class="btn-secondary" onclick="goStep(1)">← Modifier le formulaire</button>
+      <button class="btn-primary btn-lg" onclick="goStep(3)">
+        Contenu approuvé — Générer le CSV →
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════ STEP 3 ═══════════ -->
+  <section id="step3" class="step">
+    <div class="page-header">
+      <h1>Export CSV Sitecore</h1>
+      <p>Le CSV est prêt à être importé dans Sitecore Item Import.</p>
+    </div>
+
+    <div class="csv-summary" id="csvSummary"></div>
+
+    <div class="csv-preview-wrap">
+      <div class="csv-toolbar">
+        <span class="csv-label">Aperçu CSV</span>
+        <button class="btn-copy" id="copyBtn" onclick="copyCSV()">Copier</button>
+      </div>
+      <pre class="csv-preview" id="csvPreview"></pre>
+    </div>
+
+    <div class="step3-actions">
+      <button class="btn-secondary" onclick="goStep(1)">← Recommencer</button>
+      <button class="btn-primary btn-lg" id="downloadCsvBtn" onclick="downloadCSV()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Télécharger le CSV
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
