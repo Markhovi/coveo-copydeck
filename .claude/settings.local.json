@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\Code\\\\coveo-copydeck\" -ErrorAction SilentlyContinue; if \\(-not \\(Test-Path \"C:\\\\Code\\\\coveo-copydeck\"\\)\\) { Write-Output \"Directory not found\" })",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Code\\\\coveo-copydeck\\\\css\" -Force)",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Code\\\\coveo-copydeck\\\\js\" -Force)",
+      "PowerShell(Get-ChildItem \"C:\\\\Code\\\\coveo-copydeck\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName, Length)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:www.coveo.com)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing)",
+      "Bash(Select-Object -ExpandProperty Content)",
+      "Bash(Select-String \"mugen\")",
+      "Bash(cp \"C:\\\\Users\\\\pc\\\\Downloads\\\\brush one.svg\" \"C:\\\\Code\\\\coveo-copydeck\\\\assets\\\\brush-one.svg\")",
+      "Bash(cp \"C:\\\\Users\\\\pc\\\\Downloads\\\\brush title.svg\" \"C:\\\\Code\\\\coveo-copydeck\\\\assets\\\\brush-title.svg\")",
+      "Bash(head -1 \"C:\\\\Code\\\\coveo-coveo-copydeck\\\\assets\\\\brush-one.svg\" 2>/dev/null || head -1 \"C:\\\\Code\\\\coveo-copydeck\\\\assets\\\\brush-one.svg\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(npx vite *)",
+      "Bash(curl -s http://localhost:5174/)",
+      "Bash(curl -s http://localhost:5174/src/main.js)",
+      "PowerShell($zip = \"$env:USERPROFILE\\\\OneDrive\\\\Bureau\\\\coveo-copydeck.zip\"; Add-Type -AssemblyName System.IO.Compression.FileSystem; $a = [System.IO.Compression.ZipFile]::OpenRead\\($zip\\); $names = $a.Entries | ForEach-Object { $_.FullName }; $a.Dispose\\(\\); \"Total entries: $\\($names.Count\\)\"; \"Has node_modules: $\\([bool]\\($names -match '^node_modules/'\\)\\)\"; \"Has dist: $\\([bool]\\($names -match '^dist/'\\)\\)\"; \"--- top level ---\"; $names | ForEach-Object { \\($_ -split '/'\\)[0] } | Sort-Object -Unique)"
+    ]
+  }
+}
