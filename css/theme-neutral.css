@@ -1,0 +1,23 @@
+/* theme-neutral.css — neutral/minimal palette (slate blue) */
+
+:root {
+  --color-primary:       #2563EB;
+  --color-primary-mid:   #3B82F6;
+  --color-primary-light: #DBEAFE;
+  --color-primary-xlight:#EFF6FF;
+  --color-focus-ring:    rgba(59,130,246,0.15);
+
+  --color-text:          #111827;
+  --color-text-mid:      #374151;
+  --color-text-muted:    #6B7280;
+  --color-border:        #E5E7EB;
+  --color-bg:            #F9FAFB;
+  --color-surface:       #FFFFFF;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}

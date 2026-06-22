@@ -1,0 +1,241 @@
+/* theme-forest.css — Mugen: Ronin off-white + weathered vermilion */
+
+body.theme-forest {
+  /* Primary accent — blood vermilion */
+  --color-primary:        #BF360C;
+  --color-primary-mid:    #D32F2F;
+  --color-primary-light:  #F5C4B8;
+  --color-primary-xlight: #FBF0ED;
+  --color-focus-ring:     rgba(191, 54, 12, 0.12);
+
+  /* Text — deep ronin black */
+  --color-text:           #2C2C2C;
+  --color-text-mid:       #5A5A5A;
+  --color-text-muted:     #909090;
+
+  /* Structure */
+  --color-border:         #D1D1D1;
+  --color-bg:             #FAF9F6;
+  --color-surface:        #FFFFFF;
+
+  /* Shape — sharp, no mercy */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  /* Shadow — ink-toned */
+  --shadow-sm: 0 1px 3px rgba(44, 44, 44, 0.08);
+  --shadow-md: 0 4px 16px rgba(44, 44, 44, 0.12);
+}
+
+/* ── All vermilion overrides scoped to Mugen theme ───────────────── */
+
+body.theme-forest .btn-primary {
+  background: #BF360C;
+  border: none;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s, outline-color 0.2s;
+}
+body.theme-forest .btn-primary:hover {
+  background: #1A1A1A;
+  color: #BF360C;
+  outline: 1.5px solid #BF360C;
+  outline-offset: 2px;
+}
+body.theme-forest .btn-primary.btn-lg {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+body.theme-forest .btn-primary.btn-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+
+/* Sharp corners everywhere in Samurai theme */
+body.theme-forest .theme-toggle               { border-radius: 0; }
+body.theme-forest .theme-opt.active           { background: #BF360C; border-radius: 0; }
+body.theme-forest .step-pill {
+  border-radius: 0;
+  background: transparent;
+  border-color: #C0BDB8;
+  color: #8A8480;
+  font-size: 13px;
+}
+body.theme-forest .step-pill .pill-num {
+  border-radius: 0;
+  background: #C0BDB8;
+  color: #fff;
+}
+body.theme-forest .step-pill.active {
+  background: #BF360C;
+  border-color: #BF360C;
+  border-radius: 0;
+  color: #fff;
+}
+body.theme-forest .step-pill.active .pill-num {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+body.theme-forest .step-pill.done {
+  background: transparent;
+  border-color: #BF360C;
+  color: #BF360C;
+}
+body.theme-forest .step-pill.done .pill-num {
+  background: #BF360C;
+  color: #fff;
+}
+body.theme-forest .step-arrow { color: #C0BDB8; }
+
+body.theme-forest .logo svg circle:first-of-type { fill: #BF360C; }
+
+body.theme-forest .toggle-track               { background: #D1D1D1; }
+body.theme-forest .toggle-field {
+  background: transparent;
+  border-color: #D1D1D1;
+}
+body.theme-forest .toggle-label               { color: #2C2C2C; }
+body.theme-forest .toggle-field input:checked ~ .toggle-track { background: #BF360C; }
+
+body.theme-forest .radio-opt                  { color: #2C2C2C; }
+body.theme-forest .radio-opt input[type=radio] { accent-color: #BF360C; }
+body.theme-forest .radio-opt:has(input:checked) {
+  border-color: #BF360C;
+  background: color-mix(in srgb, #BF360C 8%, transparent);
+  color: #2C2C2C;
+}
+body.theme-forest .radio-opt:hover {
+  border-color: #BF360C;
+  background: color-mix(in srgb, #BF360C 5%, transparent);
+}
+
+body.theme-forest .position-opt:has(input:checked) {
+  border-color: #BF360C;
+  background: color-mix(in srgb, #BF360C 8%, transparent);
+  color: #BF360C;
+}
+body.theme-forest .position-opt:hover         { border-color: #BF360C; }
+
+body.theme-forest .btn-add-widget             { color: #BF360C; }
+body.theme-forest .btn-add-widget:hover       { background: color-mix(in srgb, #BF360C 6%, transparent); }
+
+body.theme-forest .btn-secondary:hover {
+  border-color: #BF360C;
+  background: color-mix(in srgb, #BF360C 5%, transparent);
+}
+
+body.theme-forest .btn-copy:hover             { border-color: #BF360C; color: #BF360C; }
+body.theme-forest .btn-copy.copied            { background: #BF360C; border-color: #BF360C; }
+
+/* ── 4. Focus — vermilion underline slides in from left ──────────── */
+body.theme-forest input,
+body.theme-forest textarea,
+body.theme-forest select {
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.28s ease;
+  box-shadow: 0 2px 0 0 transparent;
+}
+body.theme-forest input:focus,
+body.theme-forest textarea:focus,
+body.theme-forest select:focus {
+  border-color: #D1D1D1;
+  border-bottom-color: transparent;
+  box-shadow: 0 2px 0 0 #BF360C;
+  outline: none;
+}
+
+body.theme-forest .form-card:hover            { border-color: #D1D1D1; }
+
+body.theme-forest .req,
+body.theme-forest .req-badge {
+  background: transparent;
+  color: #BF360C;
+  border: 1px solid #BF360C;
+  font-weight: 600;
+  font-size: 9px;
+}
+
+/* ── Mugen diagonal double-stripe background (clothing motif) ─────── */
+
+body.theme-forest {
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,
+      transparent 22px,
+      rgba(191, 54, 12, 0.04) 22px,
+      rgba(191, 54, 12, 0.04) 24px,
+      transparent 24px,
+      transparent 30px,
+      rgba(191, 54, 12, 0.04) 30px,
+      rgba(191, 54, 12, 0.04) 32px
+    );
+}
+
+/* ── Brush accent images (Samurai theme only) ─────────────────────── */
+.brush-accent {
+  display: none;
+  pointer-events: none;
+  user-select: none;
+}
+body.theme-forest .brush-accent { display: block; }
+
+/* brush-title: subtle accent under the h1 */
+body.theme-forest .brush-title-img {
+  display: block;
+  width: 420px;
+  height: auto;
+  margin-top: -10px;
+  margin-bottom: 12px;
+  opacity: 0.60;
+}
+
+/* brush-one: accent under export title */
+body.theme-forest .brush-one-img {
+  display: block;
+  width: 180px;
+  height: auto;
+  margin-top: -4px;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+/* ── Bebas Neue typography — Samurai theme only ──────────────────────── */
+
+/* Page titles */
+body.theme-forest .page-header h1,
+body.theme-forest #step3 .page-header h1 {
+  font-family: 'Bebas Neue', cursive;
+  font-weight: 400; /* Bebas Neue has only one weight */
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Step nav pills — number + label */
+body.theme-forest .step-pill {
+  font-family: 'Bebas Neue', cursive;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+}
+body.theme-forest .pill-num {
+  font-family: 'Bebas Neue', cursive;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* CTA primary buttons */
+body.theme-forest .btn-primary {
+  font-family: 'Bebas Neue', cursive;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+/* Step 2 preview bar filename label — keep Inter */
+body.theme-forest .preview-bar-filename,
+body.theme-forest .preview-drive-link {
+  font-family: 'Inter', sans-serif;
+}
