@@ -11,7 +11,7 @@ and the CSV export.
 ## Features
 
 - **Guided 3-step flow**
-  1. **Remplir** — fill in event details (identification, SEO meta, hero data, date/time,
+  1. **Remplir** — fill n event details (identification, SEO meta, hero data, date/time,
      location, registration, and repeatable content sections).
   2. **Révision** — a live preview of the event page exactly as the data will render,
      plus a Google Doc reference bar.
