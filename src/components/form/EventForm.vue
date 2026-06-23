@@ -23,13 +23,28 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useEventStore } from '../../stores/event.js'
+import { useGoogleDrive } from '../../composables/useGoogleDrive.js'
 import { SCHEMA } from '../../schema/index.js'
 import FormCard from './FormCard.vue'
 import WidgetsCard from './WidgetsCard.vue'
 
 const store = useEventStore()
+const { createDoc } = useGoogleDrive()
+
+// Apply prefill data from an imported doc
+onMounted(() => {
+  if (store.prefillData) {
+    Object.entries(store.prefillData.formValues || {}).forEach(([k, v]) => {
+      if (k in formValues) formValues[k] = v
+    })
+    if (store.prefillData.widgets?.length) {
+      widgets.value = store.prefillData.widgets
+    }
+    store.prefillData = null
+  }
+})
 
 // ── Build initial form values from schema defaults ─────────────────
 const initialValues = {}
@@ -81,6 +96,7 @@ function collectData() {
   const r = key => formValues[key] || ''
 
   return {
+    resourceType: r('resourceType'),
     itemName: v('itemName'),
     itemPath: v('itemPath'),
     meta: {
@@ -149,6 +165,7 @@ async function handleSubmit() {
   try {
     const data = collectData()
     store.submitForm(data)
+    createDoc(data) // fire-and-forget — saves to Drive in the background
   } catch (err) {
     console.error(err)
     alert('Erreur : ' + err.message)

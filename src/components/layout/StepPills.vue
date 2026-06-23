@@ -1,5 +1,5 @@
 <template>
-  <nav class="steps-nav">
+  <nav class="steps-nav" v-if="store.currentStep > 0">
     <button
       class="step-pill"
       :class="{ active: store.currentStep === 1, done: store.currentStep > 1 }"

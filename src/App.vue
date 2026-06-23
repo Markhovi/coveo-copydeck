@@ -5,8 +5,9 @@
 
   <main>
     <Transition :name="transitionName" mode="out-in">
-      <StepOne v-if="store.currentStep === 1" key="step1" />
-      <StepTwo v-else-if="store.currentStep === 2" key="step2" />
+      <StepZero v-if="store.currentStep === 0"  key="step0" />
+      <StepOne  v-else-if="store.currentStep === 1" key="step1" />
+      <StepTwo  v-else-if="store.currentStep === 2" key="step2" />
       <StepThree v-else-if="store.currentStep === 3" key="step3" />
     </Transition>
   </main>
@@ -16,6 +17,7 @@
 import { computed, watch } from 'vue'
 import { useEventStore } from './stores/event.js'
 import TopBar from './components/layout/TopBar.vue'
+import StepZero from './components/steps/StepZero.vue'
 import StepOne from './components/steps/StepOne.vue'
 import StepTwo from './components/steps/StepTwo.vue'
 import StepThree from './components/steps/StepThree.vue'

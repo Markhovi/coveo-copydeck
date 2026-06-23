@@ -33,6 +33,19 @@ export const SCHEMA = {
   fields: {
 
     // ── Identification ─────────────────────────────────────────────
+    resourceType: {
+      label: 'Type de ressource',
+      docxLabel: 'Type de ressource',
+      type: 'select',
+      csvColumn: null,
+      required: true,
+      options: [
+        { value: 'Events',         label: 'Events' },
+        { value: 'Reports',        label: 'Reports' },
+        { value: 'Ebook',          label: 'Ebook' },
+        { value: 'Product Sheet',  label: 'Product Sheet' }
+      ]
+    },
     itemName: {
       label: "Nom de l'événement",
       docxLabel: "Nom de l'événement",
@@ -88,9 +101,8 @@ export const SCHEMA = {
     title: {
       label: 'Titre principal',
       docxLabel: 'Titre principal',
-      type: 'textarea',
+      type: 'richtext',
       csvColumn: 'Title',
-      rows: 2,
       required: true
     },
     subtitle: {
@@ -264,7 +276,8 @@ export const SCHEMA = {
       icon: '⚙',
       label: 'Identification',
       rows: [
-        { cols: 2, fields: ['itemName', 'itemPath'] }
+        { cols: 2, fields: ['resourceType', 'itemName'] },
+        { cols: 1, fields: ['itemPath'] }
       ]
     },
     {

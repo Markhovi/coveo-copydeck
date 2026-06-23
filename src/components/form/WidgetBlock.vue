@@ -17,11 +17,10 @@
       <div class="field-grid two-col" style="margin-bottom:16px;">
         <div class="field">
           <label>Titre de section <span class="req">requis</span> <span class="char-hint">Rich text</span></label>
-          <textarea
-            rows="2"
-            :value="data.titleSection.text"
-            @input="updateField('titleSection', 'text', $event.target.value)"
-          ></textarea>
+          <RichTextEditor
+            :modelValue="data.titleSection.text"
+            @update:modelValue="updateField('titleSection', 'text', $event)"
+          />
         </div>
         <div class="field">
           <label>Position du titre</label>
@@ -50,11 +49,10 @@
 
       <div class="field">
         <label>Description / Texte <span class="req">requis</span> <span class="char-hint">Rich text</span></label>
-        <textarea
-          rows="3"
-          :value="data.descriptionSection.text"
-          @input="updateField('descriptionSection', 'text', $event.target.value)"
-        ></textarea>
+        <RichTextEditor
+          :modelValue="data.descriptionSection.text"
+          @update:modelValue="updateField('descriptionSection', 'text', $event)"
+        />
       </div>
 
       <div class="field" style="margin-top:12px;">
@@ -86,6 +84,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import RichTextEditor from './RichTextEditor.vue'
 
 const props = defineProps({
   index: { type: Number, required: true },

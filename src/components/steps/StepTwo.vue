@@ -7,9 +7,14 @@
       </div>
       <div class="preview-bar-actions">
         <button class="btn-secondary btn-sm" @click="store.goStep(1)">← Modifier</button>
+        <span v-if="store.syncStatus === 'syncing'" class="drive-status syncing">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0115-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 01-15 6.7L3 16"/></svg>
+          Sauvegarde Drive…
+        </span>
         <a
+          v-else-if="store.driveUrl"
           class="btn-secondary btn-sm preview-open-btn"
-          :href="store.driveUrl || 'https://docs.google.com/document/d/DOCUMENT_ID/edit'"
+          :href="store.driveUrl"
           target="_blank"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -17,7 +22,7 @@
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-          Ouvrir dans Docs
+          Voir le copydeck
         </a>
         <button class="btn-primary btn-sm" @click="store.goStep(3)">Générer le CSV →</button>
       </div>

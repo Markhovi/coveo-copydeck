@@ -4,7 +4,7 @@
     <div class="ep-hero">
       <div class="ep-hero-content">
         <div v-if="ev.data?.pretitle" class="ep-pretitle">{{ ev.data.pretitle }}</div>
-        <h1 class="ep-title">{{ ev.data?.title || 'Event Title' }}</h1>
+        <h1 class="ep-title" v-html="ev.data?.title || 'Event Title'"></h1>
         <div class="ep-meta-row">
           <div v-if="dateRange" class="ep-meta-item">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -60,8 +60,8 @@
           :key="i"
           class="ep-section"
         >
-          <div class="ep-section-title">{{ w.titleSection?.text || '' }}</div>
-          <div class="ep-section-desc">{{ w.descriptionSection?.text || '' }}</div>
+          <div class="ep-section-title" v-html="w.titleSection?.text || ''"></div>
+          <div class="ep-section-desc"  v-html="w.descriptionSection?.text || ''"></div>
         </div>
       </template>
       <div v-else class="ep-sections-empty">

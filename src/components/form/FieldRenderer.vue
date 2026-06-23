@@ -27,6 +27,15 @@
       </div>
     </template>
 
+    <!-- richtext -->
+    <template v-else-if="field.type === 'richtext'">
+      <RichTextEditor
+        :modelValue="modelValue"
+        :hasError="hasError"
+        @update:modelValue="emit('update:modelValue', $event)"
+      />
+    </template>
+
     <!-- textarea -->
     <template v-else-if="field.type === 'textarea'">
       <textarea
@@ -121,6 +130,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import RichTextEditor from './RichTextEditor.vue'
 
 const props = defineProps({
   fieldKey:   { type: String, required: true },

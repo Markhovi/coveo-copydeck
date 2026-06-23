@@ -8,6 +8,36 @@
 
 import { SCHEMA } from '../schema/index.js'
 
+/* ── Sitecore lookup GUIDs ──────────────────────────────────────── */
+
+const TIMEZONE_GUIDS = {
+  'Eastern Standard Time':          '{52C7AF24-DC3E-4944-824D-3143BE8FDF1B}',
+  'Central Standard Time':          '{3DAB6A2C-D86B-4CDB-A5AD-D7E3F60C217D}',
+  'Pacific Standard Time':          '{B2AD42BC-ABD7-45C8-B7CB-50B360BBA027}',
+  'GMT Standard Time':              '{46B177E4-3D4F-4B7D-B767-3401BBECB8F7}',
+  'Central European Standard Time': '{F3D4E74A-024A-483E-986D-EDBB7BF8FE37}',
+}
+
+const REGISTRATION_GUIDS = {
+  'Page with form':        '{14060640-B890-4D65-81E2-4F36A53857FB}',
+  'External Registration': '{F4882C64-8743-44C7-B85C-6667FA3FD4CC}',
+}
+
+/* ── Value formatters ───────────────────────────────────────────── */
+
+// "2026-06-16" + "14:30" → "20260616T143000Z"
+function scDate(date, time) {
+  if (!date) return ''
+  const d = date.replace(/-/g, '')
+  const t = time ? time.replace(':', '') + '00' : '000000'
+  return `${d}T${t}Z`
+}
+
+// true / "true" / 1 / "1" → "1", anything else → ""
+function scBool(val) {
+  return (val === true || val === 'true' || val === 1 || val === '1') ? '1' : ''
+}
+
 /* ── CSV escaping ───────────────────────────────────────────────── */
 
 function q(v) {
@@ -51,21 +81,21 @@ export const CsvBuilder = {
       ThumbnailImage: ev.data?.thumbnailImage,
       HeroImage:      ev.data?.heroImage,
 
-      EventStartDate: ev.eventTimeAndDate?.startDate,
-      EventStartTime: ev.eventTimeAndDate?.startTime,
-      EventEndDate:   ev.eventTimeAndDate?.endDate,
-      EventEndTime:   ev.eventTimeAndDate?.endTime,
-      EventTimeZone:  ev.eventTimeAndDate?.timeZone,
+      EventStartDate: scDate(ev.eventTimeAndDate?.startDate, ev.eventTimeAndDate?.startTime),
+      EventStartTime: '',
+      EventEndDate:   scDate(ev.eventTimeAndDate?.endDate,   ev.eventTimeAndDate?.endTime),
+      EventEndTime:   '',
+      EventTimeZone:  TIMEZONE_GUIDS[ev.eventTimeAndDate?.timeZone] || ev.eventTimeAndDate?.timeZone || '',
 
-      DisplayWeekday:                     ev.eventTimeAndDate?.displayWeekday,
-      DisplayEventTimeZone:               ev.eventTimeAndDate?.displayEventTimeZone,
-      DisplayGenericTimeZoneAbbreviation: ev.eventTimeAndDate?.displayGenericTimeZoneAbbreviation,
-      DisplayEventDuration:               ev.eventTimeAndDate?.displayEventDuration,
+      DisplayWeekday:                     scBool(ev.eventTimeAndDate?.displayWeekday),
+      DisplayEventTimeZone:               scBool(ev.eventTimeAndDate?.displayEventTimeZone),
+      DisplayGenericTimeZoneAbbreviation: scBool(ev.eventTimeAndDate?.displayGenericTimeZoneAbbreviation),
+      DisplayEventDuration:               scBool(ev.eventTimeAndDate?.displayEventDuration),
 
       EventLocation:  ev.eventLocation?.location,
       DirectionLink:  ev.eventLocation?.directionLink,
 
-      RegistrationBehavior:     ev.eventRegistration?.registrationBehavior,
+      RegistrationBehavior:     REGISTRATION_GUIDS[ev.eventRegistration?.registrationBehavior] || ev.eventRegistration?.registrationBehavior || '',
       ExternalRegistrationLink: ev.eventRegistration?.externalRegistrationLink,
       RegistrationLabel:        ev.eventRegistration?.registrationLabel,
       OverrideFormTitle:        ev.eventRegistration?.overrideFormTitle,

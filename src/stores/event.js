@@ -3,13 +3,15 @@ import { defineStore } from 'pinia'
 import { CsvBuilder } from '../builders/csv-builder.js'
 
 export const useEventStore = defineStore('event', () => {
-  const eventData  = ref(null)
-  const csvContent = ref('')
-  const currentStep = ref(1)
-  const prevStep   = ref(1)
-  const driveUrl   = ref('')
-  const syncStatus = ref('idle') // 'idle' | 'syncing' | 'synced' | 'error'
-  const theme      = ref(localStorage.getItem('copydeck-theme') || 'coveo')
+  const eventData   = ref(null)
+  const csvContent  = ref('')
+  const currentStep = ref(0)
+  const prevStep    = ref(0)
+  const driveUrl    = ref('')
+  const syncStatus  = ref('idle') // 'idle' | 'syncing' | 'synced' | 'error'
+  const theme       = ref(localStorage.getItem('copydeck-theme') || 'coveo')
+  const prefillData = ref(null)  // pre-populated form values from an imported doc
+  const entryMode   = ref(null)  // 'fill' | 'empty' | 'import'
 
   function setTheme(t) {
     theme.value = t
@@ -36,6 +38,8 @@ export const useEventStore = defineStore('event', () => {
     driveUrl,
     syncStatus,
     theme,
+    prefillData,
+    entryMode,
     setTheme,
     goStep,
     submitForm
